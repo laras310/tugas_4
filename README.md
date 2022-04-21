@@ -4,9 +4,9 @@ Aplikasi ini dapat memindai barcode dan mengarahkan pengguna ke link pada barcod
 
 ## Package
 Package yang digunakan:
--BarCode Scanner
--WebBrowser
--BlurView
+- BarCode Scanner
+- WebBrowser
+- BlurView
 
 ## Installation
 Aplikasi hanya untuk pengguna android. Install apk melalui link di bawah:
