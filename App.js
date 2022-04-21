@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button, Alert } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import * as WebBrowser from 'expo-web-browser';
+import { BlurView } from 'expo-blur';
+import styles from './style/stylesheet';
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -15,7 +17,6 @@ export default function App() {
   }, []);
 
   const terscan=({data})=>{
-    console.log(x);
     setScanned(true);
     handleBarCodeScanned({data});
   };
@@ -30,7 +31,8 @@ export default function App() {
           onPress: () => console.log(scanned),
           style: "cancel"
         },
-        { text: "OK", onPress: () => WebBrowser.openBrowserAsync(data)}
+        { text: "OK", onPress: () => WebBrowser.openBrowserAsync(data)
+        }
       ]
     );
 
@@ -47,15 +49,13 @@ export default function App() {
         onBarCodeScanned={scanned ? undefined : terscan}
         style={StyleSheet.absoluteFillObject}
       />
-      {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
+      {scanned && 
+      <BlurView intensity={90} tint="light" style={styles.blurContainer}>
+        <TouchableOpacity onPress={() => setScanned(false)}  style={styles.button}>
+          <Text style={styles.text}>Tap to Scan Again</Text>
+        </TouchableOpacity> 
+      </BlurView>}
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
-});
